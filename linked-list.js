@@ -87,3 +87,5 @@ myLinkedList.prepend(13);
 myLinkedList.insert(3, 99);
 console.log(myLinkedList.printList());
 console.log(myLinkedList.remove(4));
+
+module.exports = Node;
