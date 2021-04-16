@@ -67,15 +67,92 @@ class BinaryTree {
             }
         }
     }
+
+    bfs() {
+        let currentNode = this.root;
+        let list = [];
+        let queue = [];
+        // queue starts with the root node
+        queue.push(currentNode);
+
+        // go until all items in the queue have been pushed out
+        while (queue.length > 0) {
+            // take out an item from the beginning of the queue - this is the node that will be looked at
+            currentNode = queue.shift();
+            // put that node in the list of nodes
+            list.push(currentNode.value);
+            // if current node has a left child, put that in the queue
+            if (currentNode.left) {
+                queue.push(currentNode.left);
+            }
+            // if current node has a right child, put that in the queue
+            if (currentNode.right) {
+                queue.push(currentNode.right);
+            }
+        }
+        return list;
+    }
+
+    dfsInorder() {
+        return traverseInOrder(this.root, []);
+    }
+
+    dfsPostorder() {
+        return traversePostOrder(this.root, []);
+    }
+
+    dfsPreorder() {
+        return traversePreOrder(this.root, []);
+    }
 }
 
+function traverseInOrder(node, list) {
+    if (node.left) {
+        traverseInOrder(node.left, list);
+    }
+    list.push(node.value);
+
+    if (node.right) {
+        traverseInOrder(node.right, list);
+    }
+    return list;
+}
+
+function traversePostOrder(node, list) {
+    if (node.left) {
+        traversePostOrder(node.left, list);
+    }
+    if (node.right) {
+        traversePostOrder(node.right, list);
+    }
+    list.push(node.value);
+    return list;
+}
+
+function traversePreOrder(node, list) {
+    list.push(node.value);
+    if (node.left) {
+        traversePreOrder(node.left, list);
+    }
+    if (node.right) {
+        traversePreOrder(node.right, list);
+    }
+    return list;
+}
+
+
 const tree = new BinaryTree();
-tree.insert(10);
-tree.insert(11);
-tree.insert(15);
 tree.insert(9);
-console.log(tree.lookup(10));
-console.log(JSON.stringify(traverse(tree.root)));
+tree.insert(4);
+tree.insert(6);
+tree.insert(20);
+tree.insert(170);
+tree.insert(15);
+tree.insert(1);
+// console.log(tree.bfs());
+console.log(tree.dfsPostorder());
+// console.log(tree.lookup(10));
+// console.log(JSON.stringify(traverse(tree.root)));
 // BinaryTree.insert(5);
 
 function traverse(node) {
